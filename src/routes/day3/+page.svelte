@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ArrowLeft from '$lib/ArrowLeft.svelte';
 	import type { PageData } from './$types';
 	import ChildrenDragzone from './_ChildrenDragzone.svelte';
 	import ChildrenGifts from './_ChildrenGifts.svelte';
@@ -12,7 +13,13 @@
 </script>
 
 <main class="p-8">
-	<h1 class="text-3xl">Day 3</h1>
+	<span class="flex gap-2 items-center">
+		<a href="/">
+			<ArrowLeft />
+		</a>
+		<h1 class="text-3xl">Sleigh Load Balancer (SLB™)</h1>
+	</span>
+
 	<p>Selected weight: {selectedWeight}</p>
 
 	<button on:click={store.reset} class="btn btn-warning btn-sm">Reset</button>
