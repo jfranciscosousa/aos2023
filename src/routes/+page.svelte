@@ -3,5 +3,6 @@
 		<a class="btn btn-primary" href="/day1">Day 1</a>
 		<a class="btn btn-primary" href="/day2">Day 2</a>
 		<a class="btn btn-primary" href="/day3">Day 3</a>
+		<a class="btn btn-primary" href="/day4">Day 4</a>
 	</div>
 </div>
