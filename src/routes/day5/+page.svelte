@@ -36,6 +36,8 @@
 				<div>
 					<p>Toys created per hour: {$store.totals.toysCreatedPerHour.toFixed(2)}</p>
 					<p>Presets wrapped per hour: {$store.totals.presentsWrappedPerHour.toFixed(2)}</p>
+					<p>Avg wrap time: {$store.totals.averagePresentWrappingTime.toFixed(2)}</p>
+					<p>Avg toy time: {$store.totals.averageToyCreationTime.toFixed(2)}</p>
 				</div>
 			</div>
 
@@ -77,6 +79,9 @@
 							<p>{results.toysCreatedPerHour.toFixed(2)} toys/hr</p>
 							<p>{results.presentsWrappedPerHour.toFixed(2)} wraps/hr</p>
 							<p>{results.tasksPerHour.toFixed(2)} tasks/hr</p>
+							<p>Avg {results.averageToyCreationTime.toFixed(2)} toy time</p>
+							<p>Avg {results.averagePresentWrappingTime.toFixed(2)} tasks time</p>
+							<p>{results.tasksCompleted} tasks completed</p>
 						</div>
 					</div>
 				{/each}

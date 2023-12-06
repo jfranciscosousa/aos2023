@@ -34,7 +34,7 @@ export const RESULT_KEYS = [
 	['averageToyCreationTime', 'Avg toy time'],
 	['averagePresentWrappingTime', 'Avg wrap time'],
 	['tasksCompleted', 'Tasks completed'],
-	['tasksPerHour', 'Tasks/hr'],
+	['tasksPerHour', 'Tasks/hr']
 ] as const;
 
 type Database =
@@ -75,7 +75,7 @@ export async function createHeartrateStore() {
 					tasksPerHour: 60 / wrapTime + 60 / toyTime,
 					averageToyCreationTime: toyTime,
 					averagePresentWrappingTime: wrapTime,
-					tasksCompleted: tasks.length
+					tasksCompleted: value.length
 				};
 			}),
 			totals: {
@@ -83,7 +83,8 @@ export async function createHeartrateStore() {
 				toysCreatedPerHour: 60 / toyTime,
 				averageToyCreationTime: toyTime,
 				averagePresentWrappingTime: wrapTime,
-				tasksCompleted: tasks.length
+				tasksCompleted: tasks.length,
+				tasksPerHour: 60 / wrapTime + 60 / toyTime
 			}
 		}));
 	}, 1000);
