@@ -48,7 +48,7 @@
 				<div class="flex gap-4 items-center">
 					<span class="font-mono tracking-widest">
 						{#each morseCode.message.split('') as token, index}
-							<span id="morse_token_{index}">{token}</span>
+							<span id="morse_token_{index}" data-morse-token="true">{token}</span>
 						{/each}
 					</span>
 

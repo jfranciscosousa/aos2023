@@ -73,7 +73,7 @@ export function toMorseCode(
 }
 
 export function playMorseCode(unparsedMorseCodeString: string, abortSignal: AbortSignal) {
-	return new Promise<void>((resolve, reject) => {
+	return new Promise<void>((resolve) => {
 		const dotDuration = 0.15; // Duration of a dot in seconds
 		const dashDuration = dotDuration * 3;
 		const partPause = dotDuration; // Pause between parts of a letter
@@ -84,11 +84,16 @@ export function playMorseCode(unparsedMorseCodeString: string, abortSignal: Abor
 		const morseCodeString = unparsedMorseCodeString.trim();
 		const morseSymbols = morseCodeString.split('');
 		let totalDuration = 0;
+		const timeouts: number[] = [];
 
 		const abortCheck = () => {
 			if (abortSignal.aborted) {
+				timeouts.forEach(clearTimeout);
 				audioCtx.close(); // Close the audio context to stop all ongoing audio
-				reject('Playback aborted');
+				document
+					.querySelectorAll('[data-morse-token="true"]')
+					.forEach((el) => el.classList.remove('underline'));
+				resolve();
 			}
 		};
 
@@ -119,12 +124,14 @@ export function playMorseCode(unparsedMorseCodeString: string, abortSignal: Abor
 					totalDuration = currentTime;
 				}
 
-				setTimeout(
-					() => {
-						document.getElementById(`morse_token_${index}`)?.classList.remove('underline');
-						document.getElementById(`morse_token_${index + 1}`)?.classList.add('underline');
-					},
-					(currentTime - audioCtx.currentTime) * 1000
+				timeouts.push(
+					setTimeout(
+						() => {
+							document.getElementById(`morse_token_${index}`)?.classList.remove('underline');
+							document.getElementById(`morse_token_${index + 1}`)?.classList.add('underline');
+						},
+						(currentTime - audioCtx.currentTime) * 1000
+					)
 				);
 			}
 
