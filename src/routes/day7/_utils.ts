@@ -72,7 +72,7 @@ export function toMorseCode(
 	return { success: true, message: morseCode.trim() };
 }
 
-export function playMorseCode(morseCodeString: string, abortSignal: AbortSignal) {
+export function playMorseCode(unparsedMorseCodeString: string, abortSignal: AbortSignal) {
 	return new Promise<void>((resolve, reject) => {
 		const dotDuration = 0.1; // Duration of a dot in seconds
 		const dashDuration = dotDuration * 3;
@@ -81,7 +81,7 @@ export function playMorseCode(morseCodeString: string, abortSignal: AbortSignal)
 		const wordPause = dotDuration * 7; // Pause between words
 		const audioCtx = new window.AudioContext();
 		let currentTime = audioCtx.currentTime;
-
+		const morseCodeString = unparsedMorseCodeString.trim();
 		const morseSymbols = morseCodeString.split('');
 		let totalDuration = 0;
 
@@ -92,6 +92,7 @@ export function playMorseCode(morseCodeString: string, abortSignal: AbortSignal)
 			}
 		};
 
+		document.getElementById(`morse_token_${0}`)?.classList.add('underline');
 		morseSymbols.forEach((symbol, index) => {
 			abortCheck();
 
@@ -117,24 +118,27 @@ export function playMorseCode(morseCodeString: string, abortSignal: AbortSignal)
 				if (index === morseSymbols.length - 1) {
 					totalDuration = currentTime;
 				}
+
+				setTimeout(
+					() => {
+						document.getElementById(`morse_token_${index}`)?.classList.remove('underline');
+						document.getElementById(`morse_token_${index + 1}`)?.classList.add('underline');
+					},
+					(currentTime - audioCtx.currentTime) * 1000
+				);
 			}
 
 			oscillator.onended = () => {
 				oscillator.disconnect();
+				document.getElementById(`morse_token_${index}`)?.classList.remove('underline');
+				document.getElementById(`morse_token_${index + 1}`)?.classList.add('underline');
+
 				abortCheck();
 				if (index === morseSymbols.length - 1) {
 					resolve();
 				}
 			};
 		});
-
-		// Handle the case where the morse code string ends with a pause
-		if (morseSymbols[morseSymbols.length - 1] === ' ') {
-			setTimeout(() => {
-				abortCheck();
-				resolve();
-			}, totalDuration - audioCtx.currentTime);
-		}
 
 		// Listen for abort signal
 		abortSignal.addEventListener('abort', abortCheck);

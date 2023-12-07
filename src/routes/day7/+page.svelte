@@ -19,7 +19,7 @@
 
 	function stop() {
 		if (abortController) abortController.abort();
-    abortController = undefined;
+		abortController = undefined;
 	}
 </script>
 
@@ -32,6 +32,10 @@
 	</span>
 
 	<div class="flex flex-col gap-4 grow justify-center items-center">
+		<p class="mt-4 text-xs">
+			Write down your morse code in the input below so you can hear how it sounds!
+		</p>
+
 		<input
 			placeholder="Type your message"
 			aria-label="Type your message"
@@ -42,9 +46,11 @@
 		{#if morseCode.success}
 			{#if morseCode.message}
 				<div class="flex gap-4 items-center">
-					<p>
-						Morse code: <span class="font-mono tracking-widest">{morseCode.message}</span>
-					</p>
+					<span class="font-mono tracking-widest">
+						{#each morseCode.message.split('') as token, index}
+							<span id="morse_token_{index}">{token}</span>
+						{/each}
+					</span>
 
 					{#if !abortController}
 						<button class="btn btn-primary btn-xs" on:click={play}>Play</button>
