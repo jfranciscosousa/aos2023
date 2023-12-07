@@ -74,7 +74,7 @@ export function toMorseCode(
 
 export function playMorseCode(unparsedMorseCodeString: string, abortSignal: AbortSignal) {
 	return new Promise<void>((resolve, reject) => {
-		const dotDuration = 0.1; // Duration of a dot in seconds
+		const dotDuration = 0.15; // Duration of a dot in seconds
 		const dashDuration = dotDuration * 3;
 		const partPause = dotDuration; // Pause between parts of a letter
 		const letterPause = dotDuration * 3; // Pause between letters
