@@ -17,8 +17,6 @@
 	let duration = getDurationUntilChristmasEve();
 	let interval: number;
 
-	$: console.log(duration);
-
 	onMount(() => {
 		interval = setInterval(() => {
 			duration = getDurationUntilChristmasEve();
@@ -39,14 +37,22 @@
 	</span>
 
 	<div class="grow flex items-center justify-center">
-		<div class="shadow-xl rounded-xl max-w-5xl bg-slate-800 flex flex-col gap-4 items-center justify-center p-8">
+		<div
+			class="shadow-xl rounded-xl max-w-5xl bg-slate-800 flex flex-col gap-4 items-center justify-center p-8"
+		>
 			<p class="text-xl">There are:</p>
 
 			<div class="flex gap-8 tabular-nums text-4xl">
 				<p>{duration.days || 0} {singularOrPlural(duration.days || 0, 'days', 'days')}</p>
 				<p>{duration.hours || 0} {singularOrPlural(duration.hours || 0, 'hours', 'hours')}</p>
-				<p>{duration.minutes || 0} {singularOrPlural(duration.minutes || 0, 'minutes', 'minutes')}</p>
-				<p>{duration.seconds || 0} {singularOrPlural(duration.seconds || 0, 'seconds', 'seconds')}</p>
+				<p>
+					{duration.minutes || 0}
+					{singularOrPlural(duration.minutes || 0, 'minutes', 'minutes')}
+				</p>
+				<p>
+					{duration.seconds || 0}
+					{singularOrPlural(duration.seconds || 0, 'seconds', 'seconds')}
+				</p>
 			</div>
 
 			<p class="text-xl">Until christmas!</p>
