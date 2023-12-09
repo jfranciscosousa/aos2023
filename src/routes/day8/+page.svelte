@@ -21,7 +21,9 @@
 		<h1 class="text-3xl">Santa's Memory Game</h1>
 	</span>
 
-	<p>Best score yet: {min($store.previousScores)}</p>
+	{#if $store.previousScores.length}
+		<p>Best score yet: {min($store.previousScores)}</p>
+	{/if}
 
 	<dialog bind:this={modalEl} class="modal">
 		<div class="modal-box">
