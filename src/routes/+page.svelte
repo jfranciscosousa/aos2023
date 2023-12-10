@@ -9,5 +9,6 @@
 		<a class="btn btn-primary" href="/day7">Day 7</a>
 		<a class="btn btn-primary" href="/day8">Day 8</a>
 		<a class="btn btn-primary" href="/day9">Day 9</a>
+		<a class="btn btn-primary" href="/day10">Day 10</a>
 	</div>
 </div>
